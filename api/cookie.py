@@ -1,71 +1,68 @@
 from flask import Blueprint, jsonify
-from flask_restful import Api, Resource, reqparse
-from __init__ import db
-from model.cookie import Cookie  # Import the Cookie model
+from flask_restful import Api, Resource
+import requests
+import random
 
-# Create a Blueprint for the Cookie API
-Cookie_api = Blueprint('Cookie_api', __name__, url_prefix='/api/Cookie')
+from model.cookie import *
 
-# Create the API instance
-api = Api(Cookie_api)
+cookie_api = Blueprint('cookie_api', __name__,
+                      url_prefix='/api/cookies')
 
-class CookieAPI(Resource):
-    def get(self, id):
-        # Retrieve a single cookie by its ID from the database
-        cookie = Cookie.query.get(id)
+api = Api(cookie_api)
 
-        if cookie:
-            return cookie.to_dict(), 200
-        else:
-            return {"message": "Cookie not found"}, 404
+class CookiesAPI:
+    # Create a new cookie (not implemented)
+    class _Create(Resource):
+        def post(self, cookie_type):
+            pass
+            
+    # Get a list of all cookies
+    class _Read(Resource):
+        def get(self):
+            return jsonify(getCookies())
 
-    def put(self, id):
-        parser = reqparse.RequestParser()
-        parser.add_argument("Cookie_name", type=str)
-        parser.add_argument("image", type=str)
-        parser.add_argument("stock", type=str)
-        parser.add_argument("price", type=str)
-        args = parser.parse_args()
-
-        try:
-            cookie = db.session.query(Cookie).get(id)
+    # Get information about a specific cookie type
+    class _ReadType(Resource):
+        def get(self, cookie_type):
+            cookie = getCookie(cookie_type)
             if cookie:
-                if args["Cookie_name"] is not None:
-                    cookie.Cookie_name = args["Cookie_name"]
-                if args["image"] is not None:
-                    cookie.image = args["image"]
-                if args["stock"] is not None:
-                    cookie.stock = args["stock"]
-                if args["price"] is not None:
-                    cookie.price = args["price"]
-                db.session.commit()
-                return cookie.to_dict(), 200
+                return jsonify(cookie)
             else:
-                return {"message": "Cookie not found"}, 404
-        except Exception as exception:
-            db.session.rollback()
-            return {"message": f"Error: {exception}"}, 500
+                return {"message": "Cookie type not found."}, 404
 
-    def delete(self, id):
-        try:
-            cookie = db.session.query(Cookie).get(id)
-            if cookie:
-                db.session.delete(cookie)
-                db.session.commit()
-                return cookie.to_dict()
+    # Get a random cookie
+    class _ReadRandom(Resource):
+        def get(self):
+            return jsonify(getRandomCookie())
+
+    # Get the count of cookies
+    class _ReadCount(Resource):
+        def get(self):
+            count = countCookies()
+            countMsg = {'count': count}
+            return jsonify(countMsg)
+
+    # Buy a cookie
+    class _UpdateBuy(Resource):
+        def post(self, cookie_type):
+            result = buyCookie(cookie_type)
+            if 'message' in result:
+                return result, 200
             else:
-                return {"message": "Cookie not found"}, 404
-        except Exception as exception:
-            db.session.rollback()
-            return {"message": f"Error: {exception}"}, 500
+                return {"message": "Cookie type not found."}, 404
 
-# Add the CookieAPI resource to the /api/Cookie/<int:id> endpoint
-api.add_resource(CookieAPI, "/<int:id>")
+    api.add_resource(_Create, '/create/<string:cookie_type>')
+    api.add_resource(_Read, '/')
+    api.add_resource(_ReadType, '/<string:cookie_type>')
+    api.add_resource(_ReadRandom, '/random')
+    api.add_resource(_ReadCount, '/count')
+    api.add_resource(_UpdateBuy, '/buy/<string:cookie_type>')
 
-class CookieListAPI(Resource):
-    def get(self):
-        # Retrieve all cookies from the database
-        cookies = Cookie.query.all()
+if __name__ == "__main__": 
+    # Define the server URL
+    server = 'https://flask.nighthawkcodingsociety.com'  # Update the URL as needed
+    url = server + "/api/cookies"
+    responses = []  # Responses list
 
         # Prepare the data in JSON format
         json_ready = [cookie.to_dict() for cookie in cookies]
@@ -82,13 +79,15 @@ class CookieListAPI(Resource):
         args = parser.parse_args()
         cookie = Cookie(args["Cookie_name"], args["image"], args["stock"], args["price"]) 
 
-        try:
-            db.session.add(cookie)
-            db.session.commit()
-            return cookie.to_dict(), 201
-        except Exception as exception:
-            db.session.rollback()
-            return {"message": f"Error: {exception}"}, 500
+    # Get a random cookie
+    responses.append(
+        requests.get(url + "/random")
+    )
 
-# Add the CookieListAPI resource to the /api/Cookie endpoint
-api.add_resource(CookieListAPI, "/")
+    # Cycle through responses
+    for response in responses:
+        print(response)
+        try:
+            print(response.json())
+        except:
+            print("unknown error")
