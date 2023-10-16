@@ -20,11 +20,11 @@ def initCookies():
 def getCookies():
     return cookie_data["cookies"]
 
-def init_cookies():
-    # You can keep the rest of your code as is
-    Cookie1 = Cookie(Cookie_name="Double Chocolate Chip", image="https://stylesweet.com/wp-content/uploads/2022/08/DoubleChocolateChipCookies_featured.jpg", stock="100", price="4.99") #replace with real data
-    Cookie2 = Cookie(Cookie_name="Snicker Doodle", image="https://cakemehometonight.com/wp-content/uploads/2021/12/Snickerdoodle-Cookies-FI.jpg", stock="100", price="5.99")
-    Cookie3 = Cookie(Cookie_name="Choclate Chip", image="https://www.cookingclassy.com/wp-content/uploads/2014/06/chocolate-chip-cookie-16.jpg", stock="100", price="3.99")
+# Cookie getter
+def getCookie(cookie_type):
+    for cookie in cookie_data["cookies"]:
+        if cookie['type'] == cookie_type:
+            return cookie
 
 # Return random cookie from cookie_data
 def getRandomCookie():

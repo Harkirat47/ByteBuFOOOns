@@ -64,20 +64,21 @@ if __name__ == "__main__":
     url = server + "/api/cookies"
     responses = []  # Responses list
 
-        # Prepare the data in JSON format
-        json_ready = [cookie.to_dict() for cookie in cookies]
- 
-        # Return the JSON response
-        return jsonify(json_ready)
+    # Get the count of cookies on the server
+    count_response = requests.get(url + "/count")
+    count_json = count_response.json()
+    count = count_json['count']
 
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument("Cookie_name", required=True, type=str)
-        parser.add_argument("image", required=True, type=str)
-        parser.add_argument("stock", required=True, type=str)  # Adjust the type to int
-        parser.add_argument("price", required=True, type=str)  # Adjust the type to float
-        args = parser.parse_args()
-        cookie = Cookie(args["Cookie_name"], args["image"], args["stock"], args["price"]) 
+    # Buy a random cookie
+    num = random.choice(cookie_data['list'])
+    responses.append(
+        requests.post(url + "/buy/" + num)
+    )
+
+    # Get information about a specific cookie type
+    responses.append(
+        requests.get(url + "/" + num)
+    )
 
     # Get a random cookie
     responses.append(
