@@ -80,7 +80,7 @@ class CookieListAPI(Resource):
         parser.add_argument("stock", required=True, type=str)  # Adjust the type to int
         parser.add_argument("price", required=True, type=str)  # Adjust the type to float
         args = parser.parse_args()
-        cookie = Cookie(args["Cookie_name"], args["image"], args["stock"], args["price"])
+        cookie = Cookie(args["Cookie_name"], args["image"], args["stock"], args["price"]) 
 
         try:
             db.session.add(cookie)
