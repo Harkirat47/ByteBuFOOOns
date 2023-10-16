@@ -19,9 +19,9 @@ class Cookie(db.Model):
 
 def init_cookies():
     # You can keep the rest of your code as is
-    Cookie1 = Cookie(Cookie_name="cookie 1", image="image1.jpg", stock="100", price="2.00") #replace with real data
-    Cookie2 = Cookie(Cookie_name="cookie 2", image="image2.jpg", stock="100", price="2.00")
-    Cookie3 = Cookie(Cookie_name="cookie 3", image="image3.jpg", stock="100", price="2.00")
+    Cookie1 = Cookie(Cookie_name="BlueBerry", image="image1.jpg", stock="100", price="2.00") #replace with real data
+    Cookie2 = Cookie(Cookie_name="SnickerDoodle", image="image2.jpg", stock="100", price="2.00")
+    Cookie3 = Cookie(Cookie_name="Choclate Chip", image="image3.jpg", stock="100", price="2.00")
 
     db.session.add(Cookie1)
     db.session.add(Cookie2)
