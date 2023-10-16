@@ -69,7 +69,7 @@ class CookieListAPI(Resource):
 
         # Prepare the data in JSON format
         json_ready = [cookie.to_dict() for cookie in cookies]
-
+ 
         # Return the JSON response
         return jsonify(json_ready)
 
