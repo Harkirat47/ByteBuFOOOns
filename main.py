@@ -8,15 +8,14 @@ from __init__ import app,db  # Definitions initialization
 from model.jokes import initJokes
 from model.users import initUsers
 from model.players import initPlayers
-from model.cookie import initCookies
-
+from model.cookie import init_cookies
 
 # setup APIs
 from api.covid import covid_api # Blueprint import api definition
-from api.cookie import cookie_api# Blueprint import api definition
+from api.joke import joke_api # Blueprint import api definition
 from api.user import user_api # Blueprint import api definition
 from api.player import player_api
-
+from api.cookie import Cookie_api
 
 # setup App pages
 from projects.projects import app_projects # Blueprint directory import projects definition
@@ -26,11 +25,12 @@ from projects.projects import app_projects # Blueprint directory import projects
 db.init_app(app)
 
 # register URIs
-app.register_blueprint(cookie_api) # register api routes
+app.register_blueprint(joke_api) # register api routes
 app.register_blueprint(covid_api) # register api routes
 app.register_blueprint(user_api) # register api routes
 app.register_blueprint(player_api)
 app.register_blueprint(app_projects) # register app pages
+app.register_blueprint(Cookie_api)
 
 @app.errorhandler(404)  # catch for URL not found
 def page_not_found(e):
@@ -50,7 +50,8 @@ def activate_job():  # activate these items
     initJokes()
     initUsers()
     initPlayers()
-    initCookies()
+    init_cookies()
+
 
 # this runs the application on the development server
 if __name__ == "__main__":
