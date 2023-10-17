@@ -42,20 +42,22 @@ def initCookies():
             return
 
         basedir = os.path.abspath(os.path.dirname(__file__))
-        file_path = os.path.join(basedir, "../static/data/cookies.csv")  # Changed to use os.path.join for better compatibility
+        file_path = os.path.join(basedir, "../static/data/cookies.csv")
         df = pd.read_csv(file_path)
 
-        for index, row in df.iterrows():
-            cookie = Cookie(
-                title=row['Title'],
-                ingredients=row['Ingredients'],
-                stock=row.get('Instructions', None),  # Added a get method to handle the possibility of the key not existing
-                image_name=row.get('Image_Name', None),
-                price=row.get('price', None)
-            )
+        print("Number of rows in CSV:", len(df))
 
-            db.session.add(cookie)
+        for index, row in df.iterrows():
             try:
+                cookie = Cookie(
+                    title=row['Title'],
+                    ingredients=row['Ingredients'],
+                    stock=row.get('Instructions', None),
+                    image_name=row.get('Image_Name', None),
+                    price=row.get('price', None)
+                )
+
+                db.session.add(cookie)
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()

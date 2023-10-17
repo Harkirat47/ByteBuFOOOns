@@ -1,0 +1,11 @@
+Title,Ingredients,Instructions,Image_Name,price
+Chocolate Chip Cookie,Flour, Sugar, Chocolate Chips,Bake at 350°F for 12 minutes,chocolate_chip.jpg,1.99
+Oatmeal Raisin Cookie,Oats, Raisins, Cinnamon,Bake at 375°F for 10 minutes,oatmeal_raisin.jpg,1.79
+Peanut Butter Cookie,Flour, Sugar, Peanut Butter,Bake at 325°F for 15 minutes,peanut_butter.jpg,2.29
+Snickerdoodle Cookie,Flour, Sugar, Cinnamon,Bake at 375°F for 10 minutes,snickerdoodle.jpg,1.89
+Double Chocolate Cookie,Flour, Sugar, Cocoa Powder,Bake at 360°F for 12 minutes,double_chocolate.jpg,2.49
+Sugar Cookie,Flour, Sugar, Butter,Bake at 325°F for 10 minutes,sugar_cookie.jpg,1.69
+Gingerbread Cookie,[Flour, Molasses, Ginger],Bake at 350°F for 10 minutes,gingerbread.jpg,1.99
+Shortbread Cookie,Flour, Sugar, Butter,Bake at 325°F for 15 minutes,shortbread.jpg,1.79
+Lemon Zest Cookie,Flour, Sugar, Lemon Zest,Bake at 350°F for 10 minutes,lemon_zest.jpg,1.99
+M&M Cookie,Flour, Sugar, M&Ms,Bake at 360°F for 12 minutes,mm_cookie.jpg,1.79
