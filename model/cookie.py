@@ -2,7 +2,7 @@ from __init__ import db
 
 class Cookie(db.Model):
     __tablename__ = "Cookie"
-    id = db.Column(db.Integer, primary_key=True)  # Define a primary key column
+    id = db.Column(db.Integer, primary_key=True)  #  Define a primary key column
     Cookie_name = db.Column(db.String, nullable=False)
     image = db.Column(db.String, nullable=False)
     stock = db.Column(db.String, nullable=False)
@@ -15,7 +15,7 @@ class Cookie(db.Model):
         self.price = price
 
     def to_dict(self):
-        return {"Cookie_name": self.Cookie_name, "image": self.image, "stock": self.stock, "price": self.price}
+        return {"id": self.id,"Cookie_name": self.Cookie_name, "image": self.image, "stock": self.stock, "price": self.price}
 
 def init_cookies():
     # You can keep the rest of your code as is
