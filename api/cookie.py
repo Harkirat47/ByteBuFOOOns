@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_restful import Api, Resource, reqparse
 from __init__ import db
-from model.cookie import Cookie  # Import the Cookie model
+from model.cookies import Cookie  # Import the Cookie model
 
 # Create a Blueprint for the Cookie API
 Cookie_api = Blueprint('Cookie_api', __name__, url_prefix='/api/Cookie')
