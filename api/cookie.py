@@ -55,7 +55,7 @@ class CookieAPI(Resource):
                     cookie.image = args["image"]
                 if args["stock"] is not None:
                     cookie.stock = args["stock"]
-                if args["image"] is not None:
+                if args["price"] is not None:
                     cookie.image = args["price"]
                 db.session.commit()
                 return cookie.to_dict(), 200
