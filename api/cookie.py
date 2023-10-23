@@ -24,12 +24,17 @@ class CookieAPI(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("cookie_name", required=True, type=str)
         parser.add_argument("image", required=True, type=str)
-        parser.add_argument("stock", required=True, type=str)
-        parser.add_argument("price", required=True, type=str)
+        parser.add_argument("stock", required=True, type=int)
+        parser.add_argument("price", required=True, type=float)  # Change type to float for price
         args = parser.parse_args()
-        cookie = Cookie(args["cookie_name"], args["image"])
 
         try:
+            cookie = Cookie(
+                cookie_name=args["cookie_name"],
+                image=args["image"],
+                stock=args["stock"],
+                price=args["price"]
+            )
             db.session.add(cookie)
             db.session.commit()
             return cookie.to_dict(), 201
@@ -42,8 +47,8 @@ class CookieAPI(Resource):
         parser.add_argument("id", required=True, type=int)
         parser.add_argument("cookie_name", type=str)
         parser.add_argument("image", type=str)
-        parser.add_argument("stock", type=str)
-        parser.add_argument("price", type=str)
+        parser.add_argument("stock", type=int)
+        parser.add_argument("price", type=float)  # Change type to float for price
         args = parser.parse_args()
 
         try:
@@ -56,7 +61,7 @@ class CookieAPI(Resource):
                 if args["stock"] is not None:
                     cookie.stock = args["stock"]
                 if args["price"] is not None:
-                    cookie.image = args["price"]
+                    cookie.price = args["price"]  # Fix the attribute name here
                 db.session.commit()
                 return cookie.to_dict(), 200
             else:
@@ -64,6 +69,7 @@ class CookieAPI(Resource):
         except Exception as exception:
             db.session.rollback()
             return {"message": f"Error: {exception}"}, 500
+
 
     def delete(self):
         parser = reqparse.RequestParser()
