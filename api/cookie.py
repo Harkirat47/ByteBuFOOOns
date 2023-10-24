@@ -25,19 +25,15 @@ class CookieAPI(Resource):
         parser.add_argument("cookie_name", required=True, type=str)
         parser.add_argument("image", required=True, type=str)
         parser.add_argument("stock", required=True, type=int)
-        parser.add_argument("price", required=True, type=float)  # Change type to float for price
+        parser.add_argument("price", required=True, type=float)
         args = parser.parse_args()
 
+        new_cookie = Cookie(args["cookie_name"], args["image"], args["stock"], args["price"])  # Use a different name here
+
         try:
-            cookie = Cookie(
-                cookie_name=args["cookie_name"],
-                image=args["image"],
-                stock=args["stock"],
-                price=args["price"]
-            )
-            db.session.add(cookie)
+            db.session.add(new_cookie)
             db.session.commit()
-            return cookie.to_dict(), 201
+            return new_cookie.to_dict(), 201
         except Exception as exception:
             db.session.rollback()
             return {"message": f"Error: {exception}"}, 500
