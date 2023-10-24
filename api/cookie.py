@@ -55,7 +55,7 @@ class CookieAPI(Resource):
                 if args["image"] is not None:
                     cookie.image = args["image"]
                 if args["stock"] is not None:
-                    cookie.stock = args["stock"]
+                    cookie.stock = args["stock"] 
                 if args["price"] is not None:
                     cookie.price = args["price"]  # Fix the attribute name here
                 db.session.commit()
