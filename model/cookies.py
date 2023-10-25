@@ -25,8 +25,9 @@ def init_cookies():
     Cookie4 = Cookie(Cookie_name="Double Chocolate", image="double_chocolate_cookie.jpg", stock="85", price="2.75")
     Cookie5 = Cookie(Cookie_name="Peanut Butter", image="peanut_butter_cookie.jpg", stock="70", price="2.20")
     Cookie6 = Cookie(Cookie_name="Coconut Macaroon", image="coconut_macaroon_cookie.jpg", stock="95", price="2.10")
-    Cookie7 = Cookie(Cookie_name="sugar", image="coconut_macaroon_cookie.jpg", stock="95", price="2.10")
-    
+    Cookie7 = Cookie(Cookie_name="sugar", image="sugar_cookie.jpg", stock="95", price="2.10")
+    Cookie8 = Cookie(Cookie_name="Snickerdoodle", image="snickerdoodle_cookie.jpg", stock="80", price="2.25")
+
     db.session.add(Cookie1)
     db.session.add(Cookie2)
     db.session.add(Cookie3)
@@ -34,7 +35,8 @@ def init_cookies():
     db.session.add(Cookie5)
     db.session.add(Cookie6)
     db.session.add(Cookie7)
-    
+    db.session.add(Cookie8)
+
     db.session.commit()
 
 # Ensure you have imported the necessary modules and configured your database connection before running this code.
